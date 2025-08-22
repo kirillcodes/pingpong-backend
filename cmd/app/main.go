@@ -1,7 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"pingPong/internal/db"
+)
 
 func main() {
-	fmt.Println("ping-pong")
+	database := db.Connect()
+	_ = database
 }
