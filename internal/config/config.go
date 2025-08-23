@@ -1,11 +1,11 @@
 package config
 
 import (
-	"github.com/joho/godotenv"
-
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -20,6 +20,7 @@ type Config struct {
 
 func LoadConfig() *Config { // загрузка переменных из .env
 	err := godotenv.Load()
+
 	if err != nil {
 		log.Println(".env не найден, используется системный .env")
 	}
@@ -46,5 +47,6 @@ func getEnv(key, fallback string) string {
 	if value := os.Getenv(key); value != "" {
 		return value
 	}
+
 	return fallback
 }
