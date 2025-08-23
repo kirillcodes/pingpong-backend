@@ -3,6 +3,7 @@ package db
 import (
 	"log"
 	"pingPong/internal/config"
+	"pingPong/internal/models"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
@@ -19,8 +20,12 @@ func Connect() *gorm.DB {
 		log.Fatal("Ошибка при подключении к базе данных:", err)
 	}
 
-	log.Println("Успешное подключение к базе данных")
+	err = db.AutoMigrate(&models.User{}) // при запуске -> если нет таблицы, GORM её создаст
+	if err != nil {
+		log.Fatal("Ошибка при миграции базы данных:", err)
+	}
 
+	log.Println("Успешное подключение к базе данных")
 	return db
 }
 
